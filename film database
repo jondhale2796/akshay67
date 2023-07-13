@@ -1,0 +1,45 @@
+create database filmdatabase
+use filmdatabase
+create table artistt(artid int primary key ,artname varchar(255),artGender varchar(255))
+create table producer(prod_id int primary key, prod_name varchar(255),prod_num varchar(255))
+create table film(film_id int primary key,film_title varchar(255),film_yr varchar(255),film_lang varchar(255),
+prod_id int,
+CONSTRAINT akshay1 FOREIGN KEY (prod_id) REFERENCES producer(prod_id))
+
+create table casting(artid int primary key,film_id int,part int)
+alter table  casting
+add constraint akshay56 foreign key (artid) references artistt(artid)
+alter table  casting
+add constraint akshay564 foreign key (film_id) references film(film_id)
+
+create table review(film_id int primary key,star int,
+constraint akshy23 foreign key (film_id) references film(film_id))
+
+select * from artistt
+select * from casting 
+select * from film
+select * from review
+insert into artistt values(1,"akshay","m")
+insert into artistt values(2,"govinda","m")
+insert into producer values(11,"rahul","85858")
+insert into producer values(12,"vikas","98578")
+
+insert into film values(2512,"khiladi","2018","hindi",11)
+insert into film values(2513,"coolie","1995","hindi",12)
+
+insert into casting values(1,2512,1)
+insert into casting values(2,2513,2)
+insert into review values(2512,3)
+insert into review values(2513,2)
+select * from producer
+where prod_id=11
+select * from film
+where film_yr="2018"
+
+select * from casting
+left join review
+on casting.film_id=review.film_id
+union all
+select * from review
+right join casting
+on casting.film_id=review.film_id
